@@ -1,0 +1,26 @@
+{
+  "functions": {
+    "source": "server"
+  },
+  "hosting": {
+    "public": "client/dist",
+    "predeploy": [
+      "npm --prefix client run build"
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "function": "api"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

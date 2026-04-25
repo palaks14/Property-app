@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+*.bundle.js
+
+# Firebase
+.firebase/
+firebase-debug.log*
+ui-debug.log*
+
+# Netlify
+.netlify/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Uploads
+server/uploads/profile-images/*
+!server/uploads/profile-images/.gitkeep
+
+# Misc
+*.bak
+*.tmp

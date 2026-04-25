@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function hasRole(role) {
+      return isSignedIn() && request.auth.token.role == role;
+    }
+
+    function identityMatches(fieldValue) {
+      return isSignedIn() && (
+        fieldValue == request.auth.uid ||
+        fieldValue == request.auth.token.userId
+      );
+    }
+
+    match /properties/{propertyId} {
+      // Admin can fully manage properties (including approval workflow).
+      allow read, write: if hasRole("admin");
+
+      // Landlord can create and manage only their own properties.
+      allow create: if hasRole("landlord") &&
+        identityMatches(request.resource.data.landlordId);
+      allow read, update, delete: if hasRole("landlord") &&
+        identityMatches(resource.data.landlordId);
+
+      // Tenant can read only approved properties.
+      allow read: if hasRole("tenant") &&
+        resource.data.status == "approved";
+    }
+
+    match /bookings/{bookingId} {
+      // Admin full visibility and control.
+      allow read, write: if hasRole("admin");
+
+      // Tenant creates bookings for self and can read own bookings.
+      allow create: if hasRole("tenant") &&
+        identityMatches(request.resource.data.tenantId);
+      allow read: if hasRole("tenant") &&
+        identityMatches(resource.data.tenantId);
+
+      // Landlord can read bookings assigned to their properties.
+      allow read: if hasRole("landlord") &&
+        identityMatches(resource.data.landlordId);
+    }
+
+    // maintenanceRequests
+    match /maintenanceRequests/{requestId} {
+      // Tenant can create requests for themselves.
+      allow create: if hasRole("tenant") &&
+        identityMatches(request.resource.data.tenantId);
+
+      // Tenant can read and update their own requests.
+      allow read, update: if hasRole("tenant") &&
+        identityMatches(resource.data.tenantId);
+
+      // Landlord can read and update requests assigned to them.
+      allow read, update: if hasRole("landlord") &&
+        identityMatches(resource.data.landlordId);
+
+      // Admin can fully manage all requests.
+      allow read, write: if hasRole("admin");
+    }
+  }
+}
