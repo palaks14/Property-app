@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap");
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .saas-panel {
+    @apply rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm transition-all duration-300 sm:p-6;
+  }
+
+  .saas-panel-title {
+    @apply text-base font-semibold text-slate-900 sm:text-lg;
+  }
+
+  .saas-panel-subtitle {
+    @apply mt-1 text-sm text-slate-500;
+  }
+
+  .saas-control {
+    @apply rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none ring-indigo-200 transition focus:border-indigo-300 focus:ring-2;
+  }
+
+  .saas-section-stack {
+    @apply space-y-4 sm:space-y-5 lg:space-y-6;
+  }
+
+  .saas-interactive-card {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .saas-button-primary {
+    @apply rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-sky-500 active:scale-[0.98];
+  }
+
+  .saas-button-secondary {
+    @apply rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98];
+  }
+
+  .saas-hero {
+    @apply relative overflow-hidden rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-700 p-6 text-white shadow-sm sm:p-8;
+  }
+
+  .saas-hero::after {
+    content: "";
+    @apply pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-white/15 blur-3xl;
+  }
+
+  .saas-table {
+    @apply min-w-full text-left text-sm;
+  }
+
+  .saas-table thead {
+    @apply text-xs uppercase tracking-wide text-slate-500;
+  }
+
+  .saas-table th {
+    @apply px-3 py-2 font-medium;
+  }
+
+  .saas-table td {
+    @apply px-3 py-3;
+  }
+
+  .saas-table tbody tr {
+    @apply border-t border-slate-200 transition hover:bg-slate-50/80;
+  }
+
+  .saas-skeleton {
+    background: linear-gradient(90deg, #e2e8f0 25%, #cbd5e1 37%, #e2e8f0 63%);
+    background-size: 400% 100%;
+    animation: saasShimmer 1.4s ease infinite;
+  }
+}
+
+@keyframes saasShimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+:root {
+  --bg-app: #f1f5f9;
+  --text-main: #0f172a;
+  --ring-brand: #6366f1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(99, 102, 241, 0.08) 0, rgba(99, 102, 241, 0) 48%),
+    radial-gradient(circle at 90% 0%, rgba(56, 189, 248, 0.07) 0, rgba(56, 189, 248, 0) 42%),
+    var(--bg-app);
+  font-family: Manrope, "Segoe UI", sans-serif;
+  color: var(--text-main);
+}
+.menu {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.menu:hover {
+  background-color: #1f2937;
+}
